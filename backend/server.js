@@ -7,7 +7,7 @@ const workoutRoutes = require('./routes/workouts')
 const app = express()   
 
 //middleware
-app.use(express.json())
+app.use(express.json()) //.json attaches it to the req objects
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
