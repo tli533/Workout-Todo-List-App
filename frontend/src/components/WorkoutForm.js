@@ -25,7 +25,9 @@ const WorkoutForm = () => {
         }
 
         if (response.ok) {
-            
+            setTitle('')
+            setLoad('')
+            setReps('')
             setError(null)
             console.log('new workout added', json)
         }
@@ -53,7 +55,7 @@ const WorkoutForm = () => {
             <input 
             type="number"
             onChange={(e) => setReps(e.target.value)} 
-            value={Reps}
+            value={reps}
             />
 
             <button>Add Workout</button>
@@ -61,3 +63,5 @@ const WorkoutForm = () => {
     )
         
 }
+
+export default WorkoutForm
