@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const WorkoutsContext = createContext()
 
+//specifies how the state gets updated
 export const workoutsReducer = (state, action) => {
     switch (action.type) {
         case 'SET_WORKOUTS':
@@ -11,6 +12,11 @@ export const workoutsReducer = (state, action) => {
         case 'CREATE_WORKOUT' :
             return {
                 workouts: [action.payload, ...state.workouts]
+            }
+        case 'DELETE_WORKOUT' :
+            return {
+                //if the workouts are not equal to the choosen one then keep. If it is then delete
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
             }
         default: 
             return state
