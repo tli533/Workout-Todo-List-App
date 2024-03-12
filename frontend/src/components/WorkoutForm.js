@@ -59,6 +59,7 @@ const WorkoutForm = () => {
             />
 
             <button>Add Workout</button>
+            {error && <div classNmae="error">{error}</div>}
         </form>
     )
         
