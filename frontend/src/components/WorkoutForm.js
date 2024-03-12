@@ -8,11 +8,13 @@ const WorkoutForm = () => {
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
 
+    //when form is submitted creates a workout with title, load and reps
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const workout = {title, load, reps} //the function will change it to a json string
 
+        //performing a POST req to the server
         const response = await fetch('/api/workouts', {
             method: 'POST',
             body: JSON.stringify(workout),
@@ -62,7 +64,7 @@ const WorkoutForm = () => {
             />
 
             <button>Add Workout</button>
-            {error && <div classNmae="error">{error}</div>}
+            {error && <div className="error">{error}</div>}
         </form>
     )
         
