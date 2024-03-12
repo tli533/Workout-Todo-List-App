@@ -17,6 +17,8 @@ export const workoutsReducer = (state, action) => {
     }
 }
 
+//The children prop represents the components or template the const is accepting the prop
+//wraps. In this case it represents the app component
 export const WorkoutsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(workoutsReducer, {
         workouts: null
