@@ -32,6 +32,7 @@ const createWorkout = async (req, res) => {
     //add doc to db
     try {
         //storing the response in the const workout
+        //If it does not fit the requirements of the workoutModel/schema then errors
         const workout = await WorkoutModel.create({title, load, reps})
         res.status(200).json(workout)
     } catch (error) {
