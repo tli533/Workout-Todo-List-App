@@ -15,6 +15,9 @@ const workoutSchema = new Schema ({
     load: {
         type: Number,
         required: true
+    },
+    deleted: {
+        type: Date
     }
 }, { timestamps: true })
 
