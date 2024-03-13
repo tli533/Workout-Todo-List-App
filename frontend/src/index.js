@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { WorkoutsContextProvider } from './context/WorkoutContext';
 
+//rendering the app component. ReactDOM - rendering method
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

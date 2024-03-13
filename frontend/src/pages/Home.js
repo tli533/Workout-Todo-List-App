@@ -8,6 +8,7 @@ import WorkoutForm from '../components/WorkoutForm'
 const Home = () => {
     const {workouts, dispatch} = useWorkoutsContext()
 
+    //fetching workout data from an API
     useEffect(() => {
         const fetchWorkouts = async () => {
             const response = await fetch('/api/workouts')
@@ -21,6 +22,7 @@ const Home = () => {
         fetchWorkouts()
     }, [])
 
+    //rendering the divs and components
     return (
         <div className="home">
             <div className="workouts">
