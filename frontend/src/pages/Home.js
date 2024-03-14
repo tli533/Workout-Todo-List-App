@@ -1,9 +1,11 @@
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+import { usePagination } from "../hooks/usePagination"
 
 //components
 import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
+import Pagination from "../components/Pagination"
 
 const Home = () => {
     const {workouts, dispatch} = useWorkoutsContext()

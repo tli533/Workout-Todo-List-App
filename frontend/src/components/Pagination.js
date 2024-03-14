@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+//import classnames from 'classnames';
 import { usePagination, DOTS } from '../hooks/usePagination';
 
 const Pagination = props => {
@@ -34,11 +34,11 @@ const Pagination = props => {
     let lastPage = paginationRange[paginationRange.length - 1];
     return (
         <ul
-      className={classnames('pagination-container', { [className]: className })}
+      className={className('pagination-container', { [className]: className })}
     >
        {/* Left navigation arrow */}
       <li
-        className={classnames('pagination-item', {
+        className={className('pagination-item', {
           disabled: currentPage === 1
         })}
         onClick={onPrevious}
@@ -55,7 +55,7 @@ const Pagination = props => {
         // Render our Page Pills
         return (
           <li
-            className={classnames('pagination-item', {
+            className={className('pagination-item', {
               selected: pageNumber === currentPage
             })}
             onClick={() => onPageChange(pageNumber)}
@@ -66,7 +66,7 @@ const Pagination = props => {
       })}
       {/*  Right Navigation arrow */}
       <li
-        className={classnames('pagination-item', {
+        className={className('pagination-item', {
           disabled: currentPage === lastPage
         })}
         onClick={onNext}

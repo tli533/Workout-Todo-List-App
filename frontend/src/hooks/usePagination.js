@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useMemo } from 'react';
+//import { Range } from 'react-range';
 
 export const DOTS = '...';
 
@@ -33,7 +34,7 @@ export const usePagination = ({
 
         if (!shouldShowLeftDots && shouldShowRightDots) {
             let leftItemCount = 3 + 2 * siblingCount;
-            let leftRange = range(1, leftItemCount);
+            let leftRange = Range(1, leftItemCount);
 
             return[...leftRange, DOTS, totalPageCount];
         }
@@ -41,7 +42,7 @@ export const usePagination = ({
         if (shouldShowLeftDots && !shouldShowRightDots) {
 
             let rightItemCount = 3 + 2 * siblingCount;
-            let rightRange = range(
+            let rightRange = Range(
                 totalPageCount - rightItemCount + 1,
                 totalPageCount
               );
@@ -49,7 +50,7 @@ export const usePagination = ({
         }
 
         if (shouldShowLeftDots && shouldShowRightDots) {
-            let middleRange = range(leftSiblingIndex, rightSiblingIndex);
+            let middleRange = Range(leftSiblingIndex, rightSiblingIndex);
             return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
         }
 
