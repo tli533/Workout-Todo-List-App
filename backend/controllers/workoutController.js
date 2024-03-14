@@ -1,9 +1,13 @@
 const WorkoutModel = require('../models/workoutModel')
 const mongoose = require('mongoose')
 
+const PAGE_SIZE = 2;
 //get all workouts
 const getWorkouts = async (req, res) => {
-    const workouts = await WorkoutModel.find({deleted: null}).sort({createdAt: -1})
+    const {page = 0} = req.query;
+    const workouts = await WorkoutModel
+    .find({deleted: null}, null, {skip: parseInt(page) * PAGE_SIZE, limit: PAGE_SIZE})
+    .sort({createdAt: -1})
 
     res.status(200).json(workouts)
 }
