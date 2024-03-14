@@ -5,9 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar';
 
+//BrowserRoute enables client-side routing by providing a prop to the app
+//Routes are used to define routes and Route is the individual route/path
 function App() {
   return (
     <div className="App">
+      
       <BrowserRouter>
       <Navbar />
         <div className="pages">
