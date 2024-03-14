@@ -7,8 +7,18 @@ import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
 import Pagination from "../components/Pagination"
 
+let PageSize = 5
+
+
 const Home = () => {
-    const {workouts, dispatch} = useWorkoutsContext()
+    const {workouts, dispatch} = useWorkoutsContext();
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return workouts.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
 
     //fetching workout data from an API
     useEffect(() => {
@@ -32,6 +42,13 @@ const Home = () => {
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
             </div>
+            <Pagination
+            className = "pagination-bar"
+            currentPage = {currentPage}
+            totalCount={workouts.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+             />
             <WorkoutForm />
         </div>
     )
