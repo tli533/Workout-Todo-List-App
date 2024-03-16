@@ -4,12 +4,15 @@ const mongoose = require('mongoose')
 const PAGE_SIZE = 2;
 //get all workouts
 const getWorkouts = async (req, res) => {
-    const {page = 0} = req.query;
+    const page =parseInt(req.query.page || "0");
+    const totalPages = await WorkoutModel.countDocuments({deleted: null});
     const workouts = await WorkoutModel
-    .find({deleted: null}, null, {skip: parseInt(page) * PAGE_SIZE, limit: PAGE_SIZE})
-    .sort({createdAt: -1})
+    .find({deleted: null}).limit(PAGE_SIZE).skip(PAGE_SIZE * page)
+    .sort({createdAt: -1});
+    
 
-    res.status(200).json(workouts)
+    //res.status(200).json({workouts, totalPages: Math.ceil(totalPages / PAGE_SIZE)})
+    res.status(200).json({workouts, totalPages: Math.ceil(totalPages/ PAGE_SIZE)})
 }
 
 //get a single workout
