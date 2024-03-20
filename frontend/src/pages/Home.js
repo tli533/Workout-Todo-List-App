@@ -37,6 +37,15 @@ const Home = () => {
         fetchWorkouts()
     }, [dispatch, pageNumber])
 
+    const goToPrev = () => {
+        setPageNumber(Math.max(0, pageNumber -1));
+    }
+
+    const goToNext = () => {
+        setPageNumber(Math.min(numberOfPages - 1, pageNumber +1));
+    }
+    
+
     //rendering the divs and components
     return (
         <div className="home">
@@ -49,11 +58,18 @@ const Home = () => {
             </div>
             
             <WorkoutForm />
+            <div>
+            <button onClick={goToPrev}>Prev</button>
             {pages.map((pageIndex) => (
-                <button onClick={() => setPageNumber(pageIndex)}>
+                <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
                     {pageIndex + 1}</button>
             ))}
+            <button onClick={goToNext}>Next</button>
+            </div>
+            
+            
         </div>
+        
     )
 }
 
