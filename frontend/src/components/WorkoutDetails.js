@@ -1,4 +1,5 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+import { useHistory,Link } from 'react-router-dom';
 
 const WorkoutDetails = ({ workout }) => {
     const { dispatch } = useWorkoutsContext()
@@ -22,7 +23,7 @@ const WorkoutDetails = ({ workout }) => {
             <p><strong>Reps: </strong>{workout.reps}</p>
             <p>{workout.createdAt}</p>
             <span onClick={handleClick}>delete</span>
-            <button>edit</button>
+            <Link to={`/${workout._id}`}><button>edit</button></Link>
         </div>
     )
 } 

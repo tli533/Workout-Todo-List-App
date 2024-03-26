@@ -18,6 +18,11 @@ export const workoutsReducer = (state, action) => {
                 //if the workouts are not equal to the choosen one then keep. If it is then delete
                 workouts: state.workouts.filter((w) => w._id !== action.payload._id)
             }
+        case 'PUT_WORKOUT' :
+            return {
+                
+                workouts: [action.payload, ...state.workouts]
+            }
         default: 
             return state
     }

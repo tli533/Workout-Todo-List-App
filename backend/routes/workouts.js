@@ -4,7 +4,8 @@ const {
     getWorkout,
     getWorkouts,
     deleteWorkout,
-    updateWorkout
+    updateWorkout,
+    editWorkout
 } = require('../controllers/workoutController')
 
 //creating router instance
@@ -25,5 +26,8 @@ router.delete('/:id', deleteWorkout)
 
 //UPDATE a workout
 router.patch('/:id', updateWorkout)
+
+//PUT a workout (edit)
+router.put('/:id', editWorkout)
 
 module.exports = router
