@@ -5,6 +5,7 @@ import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 //components
 import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
+import WorkoutEdit from "../components/WorkoutEdit"
 
 const Home = () => {
     const {workouts, dispatch} = useWorkoutsContext()
@@ -43,10 +44,9 @@ const Home = () => {
         <div className="home">
             
             <div className="workouts">
-            <h3>Page {pageNumber + 1}</h3>
-                {page && page.map((workout) => (
-                    <WorkoutDetails key={workout._id} workout={workout} />
-                ))}
+            <h3>YO PLEASE WORK {pageNumber + 1}</h3>
+                
+                <WorkoutEdit />
             </div>
         
             

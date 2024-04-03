@@ -1,20 +1,31 @@
 import { useState, useEffect } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-import { useHistory} from 'react-router-dom'
+import { useHistory, Link} from 'react-router-dom'
 
-const WorkoutEdit = ({ workout }) => {
-    const { dispatch } = useWorkoutsContext()
+const WorkoutEdit = () => {
+    
+    const{ dispatch } = useWorkoutsContext('')
+    const [title, setTitle] = useState('')
+    const [load, setLoad] = useState('')
+    const [reps, setReps] = useState('')
+    const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     //handles deleting workouts
-    const handleClick = async () => {
-        const response = await fetch('/api/workouts/' + workout._id, {
-            method: 'PUT'
-        }) 
-        const json = await response.json()
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
-        if (response.ok) {
-            dispatch({type: 'PUT_WORKOUT', payload: json})
-        }
+        const workout = {title, load, reps} //the function will change it to a json string
+
+        //performing a POST req to the server
+        const response = await fetch('/api/workouts', {
+            method: 'PUT',
+            body: JSON.stringify(workout),
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        })
+        const json = await response.json()
 
         if (!response.ok) {
             setError(json.error)
@@ -27,14 +38,14 @@ const WorkoutEdit = ({ workout }) => {
             setReps('')
             setError(null)
             setEmptyFields([])
-            console.log('new workout added', json)
+            console.log('updated workout added', json)
             dispatch({type: 'PUT_WORKOUT', payload: json})
         }
     }
 
     return (
         <form className="create" onSubmit={handleSubmit}>
-            <h3>Add a New Workout</h3>
+            <h3>Edit Workout</h3>
 
             <label>Excerise Title:</label>
             <input 
@@ -61,6 +72,7 @@ const WorkoutEdit = ({ workout }) => {
             />
 
             <button>Edit Workout</button>
+            <Link to={`/`}><button>Cancel</button></Link>
             {error && <div className="error">{error}</div>}
         </form>
     )
