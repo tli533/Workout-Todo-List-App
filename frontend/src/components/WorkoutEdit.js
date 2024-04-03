@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-import { useHistory, Link} from 'react-router-dom'
+import { useNavigate, Link, useParams } from 'react-router-dom'
 
 const WorkoutEdit = () => {
     
@@ -9,9 +9,12 @@ const WorkoutEdit = () => {
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
+    
     const [emptyFields, setEmptyFields] = useState([])
+   
+    
 
-    //handles deleting workouts
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
 

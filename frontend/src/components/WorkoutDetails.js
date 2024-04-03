@@ -1,8 +1,11 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-import { useHistory,Link } from 'react-router-dom';
+import { useState } from "react"
+import { Link} from 'react-router-dom';
+
 
 const WorkoutDetails = ({ workout }) => {
     const { dispatch } = useWorkoutsContext()
+    const [tempTitle, setTempTitle ] =useState()
 
     //handles deleting workouts
     const handleClick = async () => {
@@ -18,12 +21,15 @@ const WorkoutDetails = ({ workout }) => {
 
     return (
         <div className="workout-details">
-            <h4>{workout.title}</h4>
+            <input className="block"
+            type = "text"
+            value={workout.title}/>
             <p><strong>Load (kg): </strong>{workout.load}</p>
             <p><strong>Reps: </strong>{workout.reps}</p>
             <p>{workout.createdAt}</p>
             <span onClick={handleClick}>delete</span>
             <Link to={`/${workout._id}`}><button>edit</button></Link>
+            
         </div>
     )
 } 
