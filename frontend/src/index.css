@@ -48,10 +48,18 @@ header a {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 /* workout-details h4 */
-.block {
+.workout-details h4 {
+  margin: 0 0 10px 0;
+  
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.title-detail {
   margin: 0 0 10px 0;
   font-family: "Poppins";
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   color: var(--primary);
 }
@@ -61,16 +69,20 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
+
+
+
 /* workout-details span */
 .workout-details span {
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 20px;
   cursor: pointer;
   background: #f1f1f1;
   padding: 6px;
-  border-radius: 50%;
+  border-radius: 30%;
   color: #333;
+  font-weight: 500;
 }
 
 /* new workout form */
