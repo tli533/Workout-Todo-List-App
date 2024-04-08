@@ -6,7 +6,7 @@ import { Link} from 'react-router-dom';
 const WorkoutDetails = ({ workout }) => {
     
     const { dispatch } = useWorkoutsContext()
-    const [prevWorkout, setWorkout] =useState(workout)
+    const [prevWorkout, setWorkout] =useState()
     const [tempTitle, setTempTitle] =useState(workout.title)
     const [tempLoad, setTempLoad] = useState(workout.load)
     const [tempReps, setTempReps] = useState(workout.reps)
@@ -48,6 +48,14 @@ const WorkoutDetails = ({ workout }) => {
         setTempReps(e.target.value);
     }
 
+    //Resets to initial state when cancelled
+    const handleCancel = () => {
+        setTempTitle(workout.title);
+        setTempLoad(workout.load);
+        setTempReps(workout.reps);
+        setChanged(false);
+    }
+
 
 
     return (
@@ -72,7 +80,12 @@ const WorkoutDetails = ({ workout }) => {
             />
             <p>{workout.createdAt}</p>
             <span onClick={handleClick}>Delete</span>
-            <Link to={`/${workout._id}`}><button>edit</button></Link>
+            {changed ? (
+                <>
+                    <button>Save</button> <button onClick={handleCancel}>Cancel</button>
+                </>)
+                : null}
+            {/* <Link to={`/${workout._id}`}><button>edit</button></Link> */}
             
         </div>
     )
