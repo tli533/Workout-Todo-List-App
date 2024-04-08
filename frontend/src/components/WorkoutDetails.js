@@ -56,6 +56,28 @@ const WorkoutDetails = ({ workout }) => {
         setChanged(false);
     }
 
+    const updateWorkout = async () => {
+        const updatedWorkoutData = {
+            title: tempTitle,
+            load: tempLoad,
+            reps: tempReps
+        };
+
+        const response = await fetch('/api/workouts/' + workout._id, {
+            method: 'PUT',
+            body: JSON.stringify(updatedWorkoutData),
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        }) 
+        const json = await response.json()
+
+        if (response.ok) {
+            dispatch({type: 'PUT_WORKOUT', payload: json})
+        }
+    }
+    
+
 
 
     return (
@@ -82,7 +104,7 @@ const WorkoutDetails = ({ workout }) => {
             <span onClick={handleClick}>Delete</span>
             {changed ? (
                 <>
-                    <button>Save</button> <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={updateWorkout}>Save</button> <button onClick={handleCancel}>Cancel</button>
                 </>)
                 : null}
             {/* <Link to={`/${workout._id}`}><button>edit</button></Link> */}
