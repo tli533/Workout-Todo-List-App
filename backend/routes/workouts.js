@@ -25,7 +25,7 @@ router.post('/', createWorkout)
 router.delete('/:id', deleteWorkout)
 
 //UPDATE a workout
-router.patch('/:id', updateWorkout)
+//router.patch('/:id', updateWorkout)
 
 //PUT a workout (edit)
 router.put('/:id', editWorkout)
