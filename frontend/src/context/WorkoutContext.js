@@ -11,17 +11,17 @@ export const workoutsReducer = (state, action) => {
             }
         case 'CREATE_WORKOUT' :
             return {
-                workouts: [action.payload, ...state.workouts]
+                workouts: [action.payload, ...(state.workouts || [])]
             }
         case 'DELETE_WORKOUT' :
             return {
                 //if the workouts are not equal to the choosen one then keep. If it is then delete
-                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+                workouts: state.workouts ? state.workouts.filter((w) => w._id !== action.payload._id) : []
             }
         case 'PUT_WORKOUT' :
             return {
                 
-                workouts: [action.payload, ...state.workouts]
+                workouts: [action.payload, ...(state.workouts)]
             }
         default: 
             return state
@@ -32,7 +32,7 @@ export const workoutsReducer = (state, action) => {
 //wraps. In this case it represents the app component
 export const WorkoutsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(workoutsReducer, {
-        workouts: null
+        workouts: []
     })
 
     

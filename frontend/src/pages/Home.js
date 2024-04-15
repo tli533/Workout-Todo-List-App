@@ -1,76 +1,59 @@
 import { useEffect, useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-//import workoutModel from "../../../backend/models/workoutModel"
-
-//components
 import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
 
 const Home = () => {
-    const {workouts, dispatch} = useWorkoutsContext()
+    const { workouts, dispatch } = useWorkoutsContext()
     const [numberOfPages, setNumberOfPages] = useState(0);
-    let [page, setPage] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     
-    
     const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
-    //fetching workout data from an API
+
+    // Fetch workouts and update the number of pages when the page number changes or workouts change
     useEffect(() => {
         const fetchWorkouts = async () => {
-            const response = await fetch(`api/workouts?page=${pageNumber}`)
-            //const json = await response.json()
-            const json = await response.json().then(({totalPages, workouts}) => {
-                //workouts(workouts);
-                page = workouts;
-                setPage(page)
-                setNumberOfPages(totalPages);
-                console.log(workouts);
-                console.log(page);
-            });
+            const response = await fetch(`api/workouts?page=${pageNumber}`);
+            const json = await response.json();
             
-
             if (response.ok) {
-                dispatch({type: 'SET_WORKOUTS', payload: json})
+                dispatch({type: 'SET_WORKOUTS', payload: json.workouts});
+                setNumberOfPages(json.totalPages);
             }
         }
 
-        fetchWorkouts()
+        fetchWorkouts();
     }, [dispatch, pageNumber])
 
     const goToPrev = () => {
-        setPageNumber(Math.max(0, pageNumber -1));
+        setPageNumber(prevPageNumber => Math.max(0, prevPageNumber - 1));
     }
 
     const goToNext = () => {
-        setPageNumber(Math.min(numberOfPages - 1, pageNumber +1));
+        setPageNumber(prevPageNumber => Math.min(numberOfPages - 1, prevPageNumber + 1));
     }
-    
 
-    //rendering the divs and components
     return (
         <div className="home">
-            
             <div className="workouts">
-            <h3>Page {pageNumber + 1}</h3>
-                {page && page.map((workout) => (
+                <h3>Page {pageNumber + 1}</h3>
+                {workouts.length > 0 && workouts.map((workout) => (
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
+                {workouts.length === 0 && <p>No workouts found.</p>}
             </div>
-            
             <WorkoutForm />
             <div>
-            <button onClick={goToPrev}>Prev</button>
-            {pages.map((pageIndex) => (
-                <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
-                    {pageIndex + 1}</button>
-            ))}
-            <button onClick={goToNext}>Next</button>
+                <button onClick={goToPrev}>Prev</button>
+                {pages.map((pageIndex) => (
+                    <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
+                        {pageIndex + 1}
+                    </button>
+                ))}
+                <button onClick={goToNext}>Next</button>
             </div>
-            
-            
         </div>
-        
     )
 }
 
-export default Home
+export default Home;

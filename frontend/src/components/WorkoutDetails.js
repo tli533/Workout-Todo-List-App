@@ -6,18 +6,13 @@ import { Link} from 'react-router-dom';
 const WorkoutDetails = ({ workout }) => {
     
     const { dispatch } = useWorkoutsContext()
-    const [prevWorkout, setWorkout] =useState()
+   
     const [tempTitle, setTempTitle] =useState(workout.title)
     const [tempLoad, setTempLoad] = useState(workout.load)
     const [tempReps, setTempReps] = useState(workout.reps)
     const [changed, setChanged] = useState(false);
 
-    useEffect(() => {
-
-        console.log('temptitle', prevWorkout)
-        console.log('setTemptitle', tempTitle)
-        console.log(changed)
-    })
+    
 
 
     //handles deleting workouts
