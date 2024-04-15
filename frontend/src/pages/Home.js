@@ -23,7 +23,7 @@ const Home = () => {
         }
 
         fetchWorkouts();
-    }, [dispatch, pageNumber])
+    }, [dispatch, pageNumber, workouts])
 
     const goToPrev = () => {
         setPageNumber(prevPageNumber => Math.max(0, prevPageNumber - 1));
