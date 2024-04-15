@@ -18,6 +18,18 @@ const Home = () => {
     }, [workouts]);
 
     
+        const fetchWorkouts = async () => {
+            const response = await fetch(`api/workouts?page=${pageNumber}`);
+            const json = await response.json();
+            
+            if (response.ok) {
+                dispatch({type: 'SET_WORKOUTS', payload: json.workouts});
+                setNumberOfPages(json.totalPages);
+            }
+        }
+
+        fetchWorkouts();
+    }, [dispatch, pageNumber])
 
     const goToPrev = () => {
         setPageNumber(prevPageNumber => Math.max(0, prevPageNumber - 1));
