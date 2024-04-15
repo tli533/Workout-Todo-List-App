@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-import WorkoutsContainer from '../containers/WorkoutsContainer';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
 
 const Home = () => {
-    const { workouts } = useWorkoutsContext();
+    const { workouts, dispatch } = useWorkoutsContext();
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
+    const [fetchComplete, setFetchComplete] = useState(false); // Track fetch completion
+    const [forceRender, setForceRender] = useState(false); // Track whether to force re-render
 
+    // Fetch workouts and update the number of pages when the page number changes or workouts change
     useEffect(() => {
-        if (workouts && workouts.totalPages) {
-            setNumberOfPages(workouts.totalPages);
-        }
-        
-        console.log(workouts);
-    }, [workouts]);
-
-    
         const fetchWorkouts = async () => {
             const response = await fetch(`api/workouts?page=${pageNumber}`);
             const json = await response.json();
@@ -25,11 +19,24 @@ const Home = () => {
             if (response.ok) {
                 dispatch({type: 'SET_WORKOUTS', payload: json.workouts});
                 setNumberOfPages(json.totalPages);
+                setFetchComplete(true); // Set fetch completion status
             }
-        }
+        };
 
         fetchWorkouts();
-    }, [dispatch, pageNumber])
+    }, [dispatch, pageNumber, workouts.length]); // Include workouts.length in dependencies
+
+    // Execute another useEffect hook only after the fetch operation is completed
+    useEffect(() => {
+        if (fetchComplete) {
+            // Your logic here
+            console.log("Fetch operation completed");
+            // Check if there are fewer than two workouts and force re-render if needed
+            if (workouts.length < 2) {
+                setForceRender(prevState => !prevState);
+            }
+        }
+    }, [fetchComplete, workouts.length]); // Include workouts.length in dependencies
 
     const goToPrev = () => {
         setPageNumber(prevPageNumber => Math.max(0, prevPageNumber - 1));
@@ -41,13 +48,12 @@ const Home = () => {
 
     return (
         <div className="home">
-            <WorkoutsContainer pageNumber={pageNumber} />
             <div className="workouts">
                 <h3>Page {pageNumber + 1}</h3>
-                {workouts && workouts.workouts && workouts.workouts.map((workout) => (
+                {workouts.length > 0 && workouts.slice(0, 2).map((workout) => ( // Render only two workouts
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
-                {(workouts && workouts.workouts && workouts.workouts.length === 0) && <p>No workouts found.</p>}
+                {workouts.length === 0 && <p>No workouts found.</p>}
             </div>
             <WorkoutForm />
             <div>
@@ -59,6 +65,7 @@ const Home = () => {
                 ))}
                 <button onClick={goToNext}>Next</button>
             </div>
+            {forceRender && <div style={{ display: 'none' }}>{Math.random()}</div>}
         </div>
     );
 };

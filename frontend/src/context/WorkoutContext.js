@@ -25,7 +25,7 @@ export const workoutsReducer = (state, action) => {
             case 'PUT_WORKOUT':
                 return {
                     ...state,
-                workouts: Array.isArray(state.workouts) ? [action.payload, ...state.workouts] : [action.payload]
+                    workouts: Array.isArray(state.workouts) ? [action.payload, ...state.workouts.filter(w => w._id !== action.payload._id)] : [action.payload]
                 };
             
         default:

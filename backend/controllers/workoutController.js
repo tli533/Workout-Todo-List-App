@@ -108,7 +108,7 @@ const editWorkout = async (req, res) => {
         return res.status(404).json({error: 'No such workout'})
     }
 
-    const workout = await WorkoutModel.findOneAndUpdate({_id: id}, {title: title}, {load: load}, {reps: reps})
+    const workout = await WorkoutModel.findOneAndUpdate({_id: id}, {...req.body})
 
     if (!workout) {
         return res.status(404).json({error: 'No suh workout'})
