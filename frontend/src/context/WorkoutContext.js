@@ -19,7 +19,7 @@ export const workoutsReducer = (state, action) => {
             case 'DELETE_WORKOUT':
             return {
                 ...state,
-                workouts: Array.isArray(state.workouts) ? state.workouts.filter((w) => w._id !== action.payload._id) : []
+                workouts: state.workouts.filter(w => w._id !== action.payload._id) 
             };
             
             case 'PUT_WORKOUT':

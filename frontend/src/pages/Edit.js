@@ -1,59 +1,48 @@
-import { useEffect, useState } from "react"
-import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-//import workoutModel from "../../../backend/models/workoutModel"
+//import { useState } from "react";
+import WorkoutDetails from '../components/WorkoutDetails';
+import WorkoutForm from '../components/WorkoutForm';
+import {HomeContainer} from "../containers/HomeContainer";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
-//components
-import WorkoutDetails from '../components/WorkoutDetails'
-import WorkoutForm from '../components/WorkoutForm'
-import WorkoutEdit from "../components/WorkoutEdit"
 
-const Home = () => {
-    const {workouts, dispatch} = useWorkoutsContext()
-    const [numberOfPages, setNumberOfPages] = useState(0);
-    let [page, setPage] = useState([]);
-    const [pageNumber, setPageNumber] = useState(0);
+const Home = ({ numberOfPages, pageNumber, goToPrev, goToNext, setPageNumber }) => {
+    const { workouts } = useWorkoutsContext();
+    const {} = HomeContainer();
     
+    //numberOfPages()
+    //const [numberOfPages, componentPages] = useState(0);
+    //console.log('test', workouts);
     
-    const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
-    //fetching workout data from an API
-    useEffect(() => {
-        const fetchWorkouts = async () => {
-            const response = await fetch(`api/workouts/}`)
-            //const json = await response.json()
-            const json = await response.json().then(({totalPages, workouts}) => {
-                //workouts(workouts);
-                page = workouts;
-                setPage(page)
-                setNumberOfPages(totalPages);
-                console.log(workouts);
-                console.log(page);
-            });
-            
-
-            if (response.ok) {
-                dispatch({type: 'SET_WORKOUTS', payload: json})
-            }
-        }
-
-        fetchWorkouts()
-    }, [dispatch, pageNumber])
-
-
-    //rendering the divs and components
+    console.log('component pages', numberOfPages);
+    const goToPage = (pageIndex) => {
+        setPageNumber(pageIndex);
+    }
+    //console.log('thing',componentPages);
+    //console.log('pages', workout)
     return (
+        
         <div className="home">
-            
             <div className="workouts">
-            <h3>YO PLEASE WORK {pageNumber + 1}</h3>
-                
-                <WorkoutEdit />
+                <h3>Page {pageNumber + 1}</h3>
+                {workouts.length > 0 && workouts.slice(0, 2).map((workout) => ( // Render only two workouts
+                    <WorkoutDetails key={workout._id} workout={workout} />
+                ))}
+                {workouts.length === 0 && <p>No workouts found.</p>}
             </div>
-        
-            
-            
+            <WorkoutForm />
+            <div>
+                <button onClick={goToPrev}>Prev</button>
+                {[...Array(numberOfPages).keys()].map((pageIndex) => (
+                    
+    
+                    <button key={pageIndex} onClick={() => goToPage(pageIndex)}>
+                        {pageIndex + 1}
+                    </button>
+                ))}
+                <button onClick={goToNext}>Next</button>
+            </div>
         </div>
-        
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
