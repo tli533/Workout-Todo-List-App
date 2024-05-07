@@ -10,11 +10,11 @@ const getWorkouts = async (req, res) => {
     .find({deleted: null}).limit(PAGE_SIZE).skip(PAGE_SIZE * page)
     .sort({createdAt: -1});
     
-
-    //res.status(200).json({workouts, totalPages: Math.ceil(totalPages / PAGE_SIZE)})
     res.status(200).json({workouts, totalPages: Math.ceil(totalPages/ PAGE_SIZE)})
 }
-
+//check if the workout exists/valid
+//is able find the workout id
+//
 //get a single workout
 const getWorkout = async (req, res) => {
     const { id } = req.params
