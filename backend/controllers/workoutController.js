@@ -102,7 +102,7 @@ const updateWorkout = async (req, res) => {
 
 const editWorkout = async (req, res) => {
     const { id } = req.params
-    const { title, load, reps} = req.body
+    //const { title, load, reps} = req.body
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such workout'})

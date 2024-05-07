@@ -101,18 +101,20 @@ describe('deleteWorkout', () => {
 });
 
 describe('editWorkout', () => {
-    // test('responds with 200 when workout is edited', async () => {
-    //     const validId = new mongoose.Types.ObjectId("578df3efb618f5141202a196");
-    //     const body = {title: 'mock title', load: 2, reps: 2};
-    //     const mockWorkout = { _id: validId, body};
-    //     const spy = jest.spyOn(workoutModel, "findOneAndUpdate");
-    //     spy.mockReturnValue(mockWorkout);
+    test('responds with 200 when workout is edited', async () => {
+        const validId = new mongoose.Types.ObjectId("578df3efb618f5141202a196");
+        const mockWorkout = { _id: validId, title: 'Updated Title', load: 5, reps: 10 };
+        const updatedWorkout = {title: 'Updated Title', load: 5, reps: 10};
 
+        const findOneAndUpdateSpy = jest.spyOn(workoutModel, 'findOneAndUpdate');
+        findOneAndUpdateSpy.mockResolvedValue(mockWorkout);
         
-    //     const res = await request(app).put(`/${validId}`);
+        const res = await request(app)
+        .put(`/${validId}`)
+        .send(updatedWorkout);
         
-    //     expect(res.statusCode).toBe(200);
-    // });
+        expect(res.statusCode).toBe(200);
+    });
 
     test('responds with 404', async () => {
         const req = {   params: { id: 'invalidId' },
