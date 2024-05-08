@@ -2,14 +2,14 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const express = require('express');
 
-const { getWorkout, deleteWorkout, editWorkout, getWorkouts, createWorkout } = require('../learning-mern-stack/backend/controllers/workoutController');
+const { getWorkout, editWorkout, getWorkouts, createWorkout } = require('../learning-mern-stack/backend/controllers/workoutController');
 const workoutModel = require('../learning-mern-stack/backend/models/workoutModel');
 const workoutRoutes = require('../learning-mern-stack/backend/routes/workouts')
 const app = new express();
 
 app.use('/', workoutRoutes);
 
-describe.only('Test getWorkouts', function () {
+describe('getWorkouts: GET multiple workouts by url/', function () {
     test('responds with workouts and total pages', async () => {
         // Mock countDocuments to return a fixed value
         const countDocumentsSpy = jest.spyOn(workoutModel, 'countDocuments').mockResolvedValue(10);
@@ -20,40 +20,45 @@ describe.only('Test getWorkouts', function () {
                     sort: () => [{
                         _id: '613712f7b7025984b080cea9',
                         name: 'mock workout 1',
-                        createdAt: new Date('2024-05-01')
+                        createdAt: new Date('2024-05-01T00:00:00.000Z')
                     },{
                         _id: '578df3efb618f5141202a196',
                         name: 'mock workout 2',
-                        createdAt: new Date('2024-05-02')
+                        createdAt: new Date('2024-05-02T00:00:00.000Z')
                     }]
                 })
             })
         }))
 
-        // Mock req and res objects
-        const req = { query: {} };
-        const res = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn()
-        };
+        const res = await request(app).get('/');
 
-        // Call the getWorkouts function
-        await getWorkouts(req, res);
+        expect(countDocumentsSpy).toHaveBeenCalled();
+        expect(findSpy).toHaveBeenCalled();
 
-        // Check if the WorkoutModel methods were called
-        expect(countDocumentsSpy).toHaveBeenCalledWith({ deleted: null });
-        expect(findSpy).toHaveBeenCalledWith({ deleted: null });
+        expect(res.status).toBe(200);
 
-        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.body.workouts).toEqual([
+            {
+                _id: '613712f7b7025984b080cea9',
+                name: 'mock workout 1',
+                createdAt: '2024-05-01T00:00:00.000Z'
+            },
+            {
+                _id: '578df3efb618f5141202a196',
+                name: 'mock workout 2',
+                createdAt: '2024-05-02T00:00:00.000Z'
+            }
+        ]);
+        expect(res.body.totalPages).toBe(5); 
 
-        // Restore the original methods
+        
         countDocumentsSpy.mockRestore();
         findSpy.mockRestore();
     });
 });
 
 
-describe('GET workout by id url/${id}', function () {
+describe('getWorkout: GET workout by id url/${id}', function () {
     test('responds with a 404 error when an invalid id is provided', async () => {
         const invalidId ='invalidId';
         const res = await request(app).get(`/${invalidId}`)
@@ -73,7 +78,7 @@ describe('GET workout by id url/${id}', function () {
     });
 });
 
-describe('createWorkout', () => {
+describe('createWorkout: POST workout', () => {
     test('responds with 400 when error occurs', async () => {
          // Mock request body
          const req = { body: { title: 'Test Workout', load: 100, reps: 10 } };
@@ -95,7 +100,7 @@ describe('createWorkout', () => {
     }); 
 });
 
-describe('deleteWorkout', () => {
+describe('deleteWorkout: DELETE workout by id url/${id}', () => {
     test('responds with the deleted workout when a valid id is provided', async () => {
         const validId = new mongoose.Types.ObjectId("578df3efb618f5141202a196");
         const mockWorkout = { _id: validId, name: 'mock workout'};
@@ -107,20 +112,16 @@ describe('deleteWorkout', () => {
     });
 
     test('responds with a 404 error when an invalid id is provided', async () => {
-        const req = { params: { id: 'invalidId' } };
-        const res = {
-            status: jest.fn(() => res),
-            json: jest.fn()
-        };
+        const invalidId = 'invalidId';
+        const res = await request(app).delete(`/${invalidId}`)
 
-        await deleteWorkout(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ error: 'No such workout' });
+        expect(res.status).toBe(404);
+        expect(res.body).toEqual({ error: 'No such workout' });
     });
 });
 
-describe('editWorkout', () => {
+describe('editWorkout: PUT workout by id', () => {
     test('responds with 200 when workout is edited', async () => {
         const validId = new mongoose.Types.ObjectId("578df3efb618f5141202a196");
         const mockWorkout = { _id: validId, title: 'Updated Title', load: 5, reps: 10 };
@@ -137,16 +138,11 @@ describe('editWorkout', () => {
     });
 
     test('responds with 404', async () => {
-        const req = {   params: { id: 'invalidId' },
-                        body: { title: 'title', load: 1, rep: 1} };
-        const res = {
-            status: jest.fn(() => res),
-            json: jest.fn()
-        };
+        const invalidId = 'invalidId';
+        const res = await request(app).put(`/${invalidId}`)
+    
 
-        await editWorkout(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ error: 'No such workout' });
+        expect(res.status).toBe(404);
+        expect(res.body).toEqual({ error: 'No such workout' });
     });
 });
