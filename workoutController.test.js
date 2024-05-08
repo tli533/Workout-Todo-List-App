@@ -2,14 +2,14 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const express = require('express');
 
-const { getWorkout, deleteWorkout, editWorkout, getWorkouts } = require('../learning-mern-stack/backend/controllers/workoutController');
+const { getWorkout, deleteWorkout, editWorkout, getWorkouts, createWorkout } = require('../learning-mern-stack/backend/controllers/workoutController');
 const workoutModel = require('../learning-mern-stack/backend/models/workoutModel');
 const workoutRoutes = require('../learning-mern-stack/backend/routes/workouts')
 const app = new express();
 
 app.use('/', workoutRoutes);
 
-describe('Test getWorkouts', function () {
+describe.only('Test getWorkouts', function () {
     test('responds with workouts and total pages', async () => {
         // Mock countDocuments to return a fixed value
         const countDocumentsSpy = jest.spyOn(workoutModel, 'countDocuments').mockResolvedValue(10);
@@ -19,8 +19,12 @@ describe('Test getWorkouts', function () {
                 skip: () => ({
                     sort: () => [{
                         _id: '613712f7b7025984b080cea9',
-                        name: 'mock workout',
+                        name: 'mock workout 1',
                         createdAt: new Date('2024-05-01')
+                    },{
+                        _id: '578df3efb618f5141202a196',
+                        name: 'mock workout 2',
+                        createdAt: new Date('2024-05-02')
                     }]
                 })
             })
@@ -49,18 +53,13 @@ describe('Test getWorkouts', function () {
 });
 
 
-describe('Test getWorkout', function () {
+describe('GET workout by id url/${id}', function () {
     test('responds with a 404 error when an invalid id is provided', async () => {
-        const req = { params: { id: 'invalidId' } };
-        const res = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn()
-        };
+        const invalidId ='invalidId';
+        const res = await request(app).get(`/${invalidId}`)
 
-        await getWorkout(req, res);
-
-        expect(res.status).toHaveBeenCalledWith(404);
-        expect(res.json).toHaveBeenCalledWith({ error: 'No such workout' });
+        expect(res.status).toBe(404);
+        expect(res.body).toEqual({ error: 'No such workout' });
     });
 
     test('respond with 200', async () => {
@@ -74,6 +73,27 @@ describe('Test getWorkout', function () {
     });
 });
 
+describe('createWorkout', () => {
+    test('responds with 400 when error occurs', async () => {
+         // Mock request body
+         const req = { body: { title: 'Test Workout', load: 100, reps: 10 } };
+         // Mock response object
+         const res = {
+             status: jest.fn().mockReturnThis(), // Mock status method
+             json: jest.fn() // Mock json method
+         };
+         // Mocking the WorkoutModel.create method to throw an error
+         jest.spyOn(workoutModel, 'create').mockRejectedValue(new Error('Database error'));
+         
+         // Call the createWorkout function with the mock request and response
+         await createWorkout(req, res);
+ 
+         // Check if status method is called with 400
+         expect(res.status).toHaveBeenCalledWith(400);
+         // Check if json method is called with error message
+         expect(res.json).toHaveBeenCalledWith({ error: 'Database error' });
+    }); 
+});
 
 describe('deleteWorkout', () => {
     test('responds with the deleted workout when a valid id is provided', async () => {
