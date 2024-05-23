@@ -4,4 +4,4 @@ steps:
     
     command: "npm test"
 
-  - label: "Success"
+  
