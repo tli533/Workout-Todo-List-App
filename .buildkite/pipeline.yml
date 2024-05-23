@@ -1,7 +1,7 @@
 steps:
-  - label: ":construction_worker: Example Test"
+  - label: "Example Test"
     command: echo "Running tests"
     
     command: "npm test"
 
-  - label: ":white_check_mark: Success"
+  - label: "Success"
