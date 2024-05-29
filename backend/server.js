@@ -34,8 +34,3 @@ mongoose.connect(process.env.MONGO_URI)
 // app.get('/', (req, res) => {
 //     res.json({mssg: 'Welcome to the app'})
 // })
-
-//listejn for requests
-
-
-//process.env
