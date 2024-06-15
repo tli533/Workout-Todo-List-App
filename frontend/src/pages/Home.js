@@ -25,7 +25,7 @@ const Home = () => {
 
         fetchWorkouts();
     }, [dispatch, pageNumber, workouts.length]); // Include workouts.length in dependencies
-
+    //New comment
     // Execute another useEffect hook only after the fetch operation is completed
     useEffect(() => {
         if (fetchComplete) {
