@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "react build --output public"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
