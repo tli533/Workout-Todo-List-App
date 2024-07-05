@@ -76,7 +76,7 @@ const WorkoutDetails = ({ workout }) => {
 
 
     return (
-        <div className="workout-details">
+        <div className="workout-details ">
             <h4>Title</h4><input className="title-detail"
             type = "text"
             value={tempTitle}
