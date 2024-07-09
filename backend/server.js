@@ -16,8 +16,8 @@ app.use((req, res, next) => {
 })
 
 //routes
-//app.use('/api/workouts', workoutRoutes)
-app.use('https://learning-mern-stack-s.vercel.app/api/workouts', workoutRoutes)
+app.use('/api/workouts', workoutRoutes)
+//app.use('https://learning-mern-stack-s.vercel.app/api/workouts', workoutRoutes)
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -35,3 +35,5 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', (req, res) => {
     res.json({mssg: 'Welcome to the app'})
 })
+
+module.exports = app;
