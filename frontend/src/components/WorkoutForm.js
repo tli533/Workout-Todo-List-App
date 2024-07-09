@@ -16,7 +16,7 @@ const WorkoutForm = () => {
         const workout = {title, load, reps} //the function will change it to a json string
 
         //performing a POST req to the server
-        const response = await fetch('https://learning-mern-stack.vercel.app/api/workouts', {
+        const response = await fetch('/api/workouts', {
             method: 'POST',
             body: JSON.stringify(workout),
             headers: {
