@@ -13,7 +13,7 @@ const Home = () => {
     // Fetch workouts and update the number of pages when the page number changes or workouts change
     useEffect(() => {
         const fetchWorkouts = async () => {
-            const response = await fetch(`api/workouts?page=${pageNumber}`);
+            const response = await fetch(`https://learning-mern-stack-1dulp4ool-tli533s-projects.vercel.app/?page=${pageNumber}`);
             const json = await response.json();
             
             if (response.ok) {
