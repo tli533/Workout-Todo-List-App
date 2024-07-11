@@ -16,7 +16,7 @@ function App() {
       <Navbar />
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route path="https://learning-mern-stack-s.vercel.app/" element={<Home />}/>
             <Route path="/:id" element={<Edit />}/>
           </Routes>
         </div>
