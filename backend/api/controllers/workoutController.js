@@ -1,4 +1,4 @@
-const WorkoutModel = require('../models/workoutModel')
+const WorkoutModel = require('../../models/workoutModel')
 const mongoose = require('mongoose')
 
 const PAGE_SIZE = 2;
