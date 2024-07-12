@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 //routes
 //app.use('/api/workouts', workoutRoutes)
-app.use('https://learning-mern-stack-s.vercel.app', workoutRoutes)
+app.use('https://backend-beta-snowy.vercel.app/', workoutRoutes)
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
