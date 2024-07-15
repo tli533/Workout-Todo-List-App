@@ -16,7 +16,7 @@ const WorkoutDetails = ({ workout }) => {
 
     //handles deleting workouts
     const handleClick = async () => {
-        const response = await fetch('/api/workouts/' + workout._id, {
+        const response = await fetch('https://backend-beta-snowy.vercel.app/api/workouts/' + workout._id, {
             method: 'DELETE'
         }) 
         const json = await response.json()
@@ -57,7 +57,7 @@ const WorkoutDetails = ({ workout }) => {
             reps: tempReps
         };
 
-        const response = await fetch('/api/workouts/' + workout._id, {
+        const response = await fetch('https://backend-beta-snowy.vercel.app/api/workouts/' + workout._id, {
             method: 'PUT',
             body: JSON.stringify(updatedWorkoutData),
             headers: {
