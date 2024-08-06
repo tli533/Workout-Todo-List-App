@@ -117,7 +117,7 @@ Demo: [https://workout-app-xi.vercel.app/]
 
 ## Contact
 
-Project Link: [https://tim-li-portfolio.netlify.app/](Personal Website)
+[https://tim-li-portfolio.netlify.app/]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
