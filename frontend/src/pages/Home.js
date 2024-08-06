@@ -53,7 +53,7 @@ const Home = () => {
                 {workouts.length > 0 && workouts.slice(0, 2).map((workout) => ( // Render only two workouts
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}
-                {workouts.length === 0 && <p>No workouts found.</p>}
+                {workouts.length === 0 && <p>Fetching workouts.</p>}
             </div>
             <WorkoutForm />
             <div>
