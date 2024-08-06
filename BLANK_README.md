@@ -63,7 +63,6 @@ Its an app that allows you to create a list for your workout plans. You can add 
 - ![html5][html5.com]
 - ![css3][css3.com]
 - [![mongodb][mongodb.com]][mongodb-url]
-  Buildkite
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -71,32 +70,47 @@ Its an app that allows you to create a list for your workout plans. You can add 
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To Run this Locally:
+Make sure to have a .env file with PORT setup and MONGO_URI setup for a database
 
-### Prerequisites
+### Prerequisites and Installation
 
-This is an example of how to list things you need to use the software and how to install them.
+You need node package manager and a .env file with PORT setup and MONGO_URI setup for a database
 
 - npm
+
   ```sh
   npm install npm@latest -g
   ```
 
-### Installation
+- .env
+  ```js
+  PORT= insert port number
+  ```
+  ```js
+  MONG_URI= insert mongo_uri
+  ```
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+### How to start it up
+
+1. Get into the backend Directory
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   cd backend
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
+3. Start backend
+   ```sh
+   npm start
+   ```
+4. Open another terminal and access frontend directory then run it
+   ```sh
+   cd frontend
+   ```
+   ```sh
+   npm run
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
