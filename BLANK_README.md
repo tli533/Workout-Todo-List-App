@@ -60,6 +60,9 @@ Its an app that allows you to create a list for your workout plans. You can add 
 - [![Node][Node.js]][Node-url]
 - [![Express][Express.com]][Express-url]
 - [![Javascript][Javascript.com]][Javascript-url]
+- [![html5][html5.com]]
+- [![css3][css3.com]]
+- [![mongodb][mongodb.com]][mongodb-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -201,3 +204,9 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Express-url]: https://expressjs.com/
 [Javascript.com]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [Javascript-url]: https://www.javascript.com/
+[Node.com]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/en
+[html5.com]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[css3.com]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[mongodb.com]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[mongodb-url]: https://www.mongodb.com/
