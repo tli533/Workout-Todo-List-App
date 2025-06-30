@@ -1,3 +1,4 @@
+name: "Node.js Example"
 steps:
   - label: "Example Test"
     command: echo "Running tests"
