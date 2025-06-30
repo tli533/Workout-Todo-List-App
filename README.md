@@ -113,7 +113,7 @@ You need node package manager and a .env file with PORT setup and MONGO_URI setu
 
 ## Demo Link
 
-Demo: [https://workout-app-xi.vercel.app/]
+[https://workout-app-xi.vercel.app/]
 
 ## Contact
 
